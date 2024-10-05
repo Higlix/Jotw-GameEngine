@@ -1,41 +1,45 @@
 #include "Jotw.h"
-#include <SDL.h>
+#include "Core/Core.h"
+#include "Core/Window.h"
 
 int main(int argc, char **argv)
 {
-    // Jotw jotw;
+	try {
+		StartEngineCore();
+	}
+	catch(const std::exception& e) {
+		std::cerr << e.what() << '\n';
+	}
 
-    // jotw.x = 245;
+	JWindow window;
 
-    // if (SDL_Init(SDL_INIT_VIDEO) < 0)
-    // {
-    //     std::cout << "Failed to initialize the SDL2 library\n";
-    //     return -1;
-    // }
+	SDL_Renderer rend = SDL_CreateRenderer(
+		window.GetWindow(),
+		-1,
+		SDL_RendererFlags::SDL_RENDERER_ACCELERATED
+	)
 
-    // SDL_Window *window = SDL_CreateWindow("SDL2 Window",
-    //                                       SDL_WINDOWPOS_CENTERED,
-    //                                       SDL_WINDOWPOS_CENTERED,
-    //                                       680, 480,
-    //                                       0);
+	while (true)
+    {
+    	// Get the next event
+		SDL_Event event;
+		if (SDL_PollEvent(&event))
+		{
+			if (event.type == SDL_QUIT)
+			{
+			// Break out of the loop on quit
+			break;
+			}
+			if (event.key.keysym.sym == SDLK_F11)
+			{
+				window.ToggleFullscreen();
+			}
 
-    // if(!window)
-    // {
-    //     std::cout << "Failed to create window\n";
-    //     return -1;
-    // }
+		}
 
-    // SDL_Surface *window_surface = SDL_GetWindowSurface(window);
 
-    // if(!window_surface)
-    // {
-    //     std::cout << "Failed to get the surface from the window\n";
-    //     return -1;
-    // }
+    }
 
-    // SDL_UpdateWindowSurface(window);
-
-    // SDL_Delay(5000);
-
+	QuitEngineCore();
     return (0);
 }

@@ -1,11 +1,6 @@
 #pragma once
 
-#include <iostream>
+#define APP_NAME "Jotw"
 
-class Jotw
-{
-public:
-    int x;
-};
-void helloWorld();
-void testi(void);
+void StartEngineCore();
+void QuitEngineCore();
