@@ -1,9 +1,10 @@
 CC=g++
 
+BUILD=build
 INCLUDE_DIR_NAME=include
 SOURCE_DIR_NAME=source
 LIBRARY_DIR_NAME=libraries
-OBJECT_DIR_NAME=object
+OBJECT_DIR_NAME=$(BUILD)/object
 
 SDL_DIR_NAME=SDL2
 SDL_INCLUDE_DIR_NAME=$(LIBRARY_DIR_NAME)/$(SDL_DIR_NAME)/include
@@ -20,28 +21,23 @@ SOURCE_FILES = $(shell find $(SOURCE_DIR_NAME) -name '*.cpp')
 OBJECT_FILES = $(SOURCE_FILES:$(SOURCE_DIR_NAME)/%.cpp=$(OBJECT_DIR_NAME)/%.o)
 
 NAME=jotw
-BUILD=build
 
 all: $(OBJECT_DIR_NAME) $(NAME)
 
 $(OBJECT_DIR_NAME):
 	mkdir -p $@
-	mkdir -p $(BUILD)
 
 $(OBJECT_DIR_NAME)/%.o: $(SOURCE_DIR_NAME)/%.cpp
-	@mkdir -p $(@D)
+	mkdir -p $(@D)
 	$(CC) -c $< -o $@ $(CXXFLAGS)
 
 $(NAME): $(OBJECT_FILES)
 	$(CC) -o $(BUILD)/$@ $(OBJECT_FILES) $(LDFLAGS)
-	@mv $(OBJECT_DIR_NAME) $(BUILD)
 
 clean:
 	rm -rf $(OBJECT_DIR_NAME)
-	
+
 fclean: clean
 	rm -rf $(BUILD)
 
 re: fclean all
-
-#	$(CC) $(CXXFLAGS) $(SOURCE_DIR_NAME)/main.cpp -o $(NAME) $(LDFLAGS)
