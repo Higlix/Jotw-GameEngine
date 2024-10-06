@@ -1,72 +1,57 @@
-#include "Core/Window.h"
+#include <iostream>
 
-JWindow::JWindow() :
-	Title("EMPTY TITLE"),
-	Width(500),
-	Height(500),
-	bIsFullscreen(false)
+#include "Core/Window.h"
+#include "Jotw.h"
+#include "SDL.h"
+
+FWindow::FWindow() :
+	Width(1280),
+	Height(780)
 {
+	Title = "Jotw Engine ";
+	Title += __APP__VERSION__;
+
 	Window = SDL_CreateWindow(
 		Title.c_str(),
-		SDL_WINDOWPOS_UNDEFINED,
-		SDL_WINDOWPOS_UNDEFINED,
+		SDL_WINDOWPOS_CENTERED,
+		SDL_WINDOWPOS_CENTERED,
 		Width,
 		Height,
-		SDL_WINDOW_RESIZABLE
+		SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL
 	);
-
-	if (Window == nullptr)
+	if (!Window)
 	{
-		std::cerr << "Window creation failed" << '\n';
+		throw(std::runtime_error("Error Creating Window: SDL_CreateWindow() returned NULL"));
 	}
 }
 
-JWindow::JWindow(const std::string& Title, uint16_t Width, uint16_t Height, SDL_WindowFlags Flags) :
-	Title(Title),
-	Width(Width),
-	Height(Height),
-	bIsFullscreen(bIsFullscreen)
+FWindow::FWindow(uint32_t WindowFlags) :
+	Width(1280),
+	Height(780)
 {
-		Window = SDL_CreateWindow(
+	Title = "Jotw Engine ";
+	Title += __APP__VERSION__;
+
+	Window = SDL_CreateWindow(
 		Title.c_str(),
-		0,
-		0,
+		SDL_WINDOWPOS_CENTERED,
+		SDL_WINDOWPOS_CENTERED,
 		Width,
 		Height,
-		Flags
+		WindowFlags
 	);
-
-	if (Window == nullptr)
+	if (!Window)
 	{
-		std::cerr << "Window creation failed" << '\n';
+		throw(std::runtime_error("Error Creating Window: SDL_CreateWindow() returned NULL"));
 	}
 }
 
-JWindow::~JWindow()
+FWindow::~FWindow()
 {
-	if (Window)
-	{
-		SDL_DestroyWindow(Window);
-	}
+	SDL_DestroyWindow(Window);
 }
 
-void JWindow::ToggleFullscreen()
-{
-	if (Window)
-	{
-		if (bIsFullscreen)
-		{
-			SDL_SetWindowFullscreen(Window, 0);
-		}
-		else
-		{
-			SDL_SetWindowFullscreen(Window, SDL_WINDOW_FULLSCREEN_DESKTOP);
-		}
-	}
-}
-
-SDL_Window *GetWindow()
+SDL_Window *FWindow::GetWindow()
 {
 	return (Window);
 }
-

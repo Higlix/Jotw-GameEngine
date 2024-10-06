@@ -1,24 +1,25 @@
-#pragma once
-#include "Core/Core.h"
+#ifndef JW_WINDOW_H
+# define JW_WINDOW_H
 
-class SDL_Window;
-class SDL_Renderer;
+#include <iostream>
+#include <cstdint>
 
-class JWindow {
+struct SDL_Window;
+
+class FWindow {
 private:
 	SDL_Window *Window;
 	std::string Title;
 	uint16_t Height;
 	uint16_t Width;
-	bool bIsFullscreen;
-
+	uint32_t WindowFlags;
 public:
-	JWindow();
-	JWindow(const std::string& Title, uint16_t Width, uint16_t Height, SDL_WindowFlags Flags);
+	FWindow();
+	FWindow(uint32_t WindowFlags);
 
-	~JWindow();
-
+	~FWindow();
 
 	SDL_Window *GetWindow();
-	void ToggleFullscreen();
 };
+
+#endif
