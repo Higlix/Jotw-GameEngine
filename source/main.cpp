@@ -23,17 +23,26 @@ int main(int argc, char **argv)
 		{
 			if (event.type == SDL_QUIT)
 			{
-			// Break out of the loop on quit
-			break;
+				// Break out of the loop on quit
+				break;
+			}
+			if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+			{
+				GEngine->Window->ChangeResolution(
+					event.window.data1,
+					event.window.data2,
+					GEngine->Renderer->GetRenderer()
+				);
+				std::cout << "WINDOW RESIZED" << std::endl;
 			}
 			if (event.key.keysym.sym == SDLK_F11)
 			{
 				// window.ToggleFullscreen();
+				std::cout << "F11 PRESS" << std::endl;
 			}
 		}
 		SDL_SetRenderDrawColor(GEngine->Renderer->GetRenderer(), 100, 149, 237, 255);
 		SDL_RenderClear(GEngine->Renderer->GetRenderer());
-		// Show the renderer contents
 		SDL_RenderPresent(GEngine->Renderer->GetRenderer());
 	}
 

@@ -49,6 +49,22 @@ FWindow::FWindow(uint32_t WindowFlags) :
 FWindow::~FWindow()
 {
 	SDL_DestroyWindow(Window);
+	if (DEBUG_MODE)
+	{
+		std::cerr << "DEBUG: Window Destoryed" << std::endl;
+	}
+}
+
+void FWindow::FullscreenToggle()
+{
+
+}
+
+void FWindow::ChangeResolution(uint16_t NewWidth, uint16_t NewHeight, SDL_Renderer* Renderer)
+{
+	Width = NewWidth;
+	Height = NewHeight;
+	SDL_RenderSetLogicalSize(Renderer, Width, Height);
 }
 
 SDL_Window *FWindow::GetWindow()

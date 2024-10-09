@@ -4,6 +4,8 @@
 #define APP_NAME "Jotw"
 #define __APP__VERSION__ "0.0.1"
 
+#define DEBUG_MODE 1
+
 #include <stdint.h>
 
 class SDL_Window;

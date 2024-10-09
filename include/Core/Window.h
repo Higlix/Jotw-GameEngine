@@ -5,6 +5,7 @@
 #include <cstdint>
 
 struct SDL_Window;
+class SDL_Renderer;
 
 class FWindow {
 private:
@@ -18,6 +19,9 @@ public:
 	FWindow(uint32_t WindowFlags);
 
 	~FWindow();
+
+	void FullscreenToggle();
+	void ChangeResolution(uint16_t NewWidth, uint16_t NewHeight, SDL_Renderer *Renderer);
 
 	SDL_Window *GetWindow();
 };

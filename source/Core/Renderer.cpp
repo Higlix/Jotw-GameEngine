@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include "Jotw.h"
+
 #include "Core/Renderer.h"
 #include "SDL.h"
 
@@ -36,7 +38,10 @@ FRenderer::FRenderer(SDL_Window *Window, int Index, uint32_t Flags) :
 FRenderer::~FRenderer()
 {
 	SDL_DestroyRenderer(Renderer);
-	std::cerr << "DEBUG: Renderer Destoryed" << std::endl;
+	if (DEBUG_MODE)
+	{
+		std::cerr << "DEBUG: Renderer Destoryed" << std::endl;
+	}
 }
 
 SDL_Renderer* FRenderer::GetRenderer()
