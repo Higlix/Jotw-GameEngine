@@ -15,12 +15,16 @@ int main(int argc, char **argv)
 		std::cerr << e.what() << '\n';
 	}
 
+	bool IsFullscreen = false;
+
 	while (true)
     {
     	// Get the next event
 		SDL_Event event;
 		if (SDL_PollEvent(&event))
 		{
+			SDL_KeyboardEvent KeyEvent = event.key;
+
 			if (event.type == SDL_QUIT)
 			{
 				// Break out of the loop on quit
@@ -35,12 +39,19 @@ int main(int argc, char **argv)
 				);
 				std::cout << "WINDOW RESIZED" << std::endl;
 			}
-			if (event.key.keysym.sym == SDLK_F11)
+			if (KeyEvent.keysym.sym == SDLK_F11 && KeyEvent.type == SDL_KEYDOWN)
 			{
-				// window.ToggleFullscreen();
+				if (IsFullscreen)
+					GEngine->Window->SwitchScreenMode(0);
+				else
+					GEngine->Window->SwitchScreenMode(SDL_WINDOW_FULLSCREEN_DESKTOP);
+				IsFullscreen = !IsFullscreen;
 				std::cout << "F11 PRESS" << std::endl;
 			}
 		}
+		SDL_Renderer *rend = GEngine->Renderer->GetRenderer();
+
+		SDL_RenderDrawPoint()
 		SDL_SetRenderDrawColor(GEngine->Renderer->GetRenderer(), 100, 149, 237, 255);
 		SDL_RenderClear(GEngine->Renderer->GetRenderer());
 		SDL_RenderPresent(GEngine->Renderer->GetRenderer());

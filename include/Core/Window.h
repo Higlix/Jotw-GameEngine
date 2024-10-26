@@ -22,6 +22,7 @@ public:
 
 	void FullscreenToggle();
 	void ChangeResolution(uint16_t NewWidth, uint16_t NewHeight, SDL_Renderer *Renderer);
+	void SwitchScreenMode(uint16_t Flag);
 
 	SDL_Window *GetWindow();
 };

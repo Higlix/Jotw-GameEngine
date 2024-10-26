@@ -55,9 +55,24 @@ FWindow::~FWindow()
 	}
 }
 
-void FWindow::FullscreenToggle()
+void FWindow::SwitchScreenMode(uint16_t Flag)
 {
+	if (Window)
+	{
+		if (Flag == SDL_WINDOW_FULLSCREEN)
+		{
+			SDL_SetWindowFullscreen(Window, SDL_WINDOW_FULLSCREEN);
+		}
+		else if (Flag == SDL_WINDOW_FULLSCREEN_DESKTOP)
+		{
+			SDL_SetWindowFullscreen(Window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+		}
+		else if (Flag == 0)
+		{
+			SDL_SetWindowFullscreen(Window, 0);
+		}
 
+	}
 }
 
 void FWindow::ChangeResolution(uint16_t NewWidth, uint16_t NewHeight, SDL_Renderer* Renderer)
